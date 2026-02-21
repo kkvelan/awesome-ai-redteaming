@@ -1,0 +1,13 @@
+# Local secrets (do not commit)
+git.token.ignore
+*.token.ignore
+.env
+.env.local
+credentials
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*~
