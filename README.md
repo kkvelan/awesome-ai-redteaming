@@ -2,26 +2,77 @@
 
 > Hand-picked resources for testing and breaking AI systems: prompt craft, attack techniques, labs, tooling, papers, and competitions.
 
-Built with ideas from [shlomihod/awesome-ai-red-teaming](https://github.com/shlomihod/awesome-ai-red-teaming) and [user1342/Awesome-LLM-Red-Teaming](https://github.com/user1342/Awesome-LLM-Red-Teaming).
+## About
+
+This is a **curated** list of resources that are helpful for AI red teaming. The goal is not to copy other lists but to gather tools, playgrounds, research, and references that support adversarial testing and security evaluation of AI and LLM systems. Sections are ordered A–Z for quick lookup.
 
 ## Contents
 
+- [About](#about)
+- [Approaches & Research](#approaches--research)
+- [Attacks](#attacks)
+- [Bug Bounties & Programmes](#bug-bounties--programmes)
+- [Case Studies & Write-ups](#case-studies--write-ups)
+- [Defences & Standards](#defences--standards)
 - [Events](#events)
-- [Playgrounds & Practice Targets](#playgrounds--practice-targets)
 - [Frameworks & Toolkits](#frameworks--toolkits)
+- [More Lists](#more-lists)
+- [Obfuscation & Encoding](#obfuscation--encoding)
+- [Playgrounds & Practice Targets](#playgrounds--practice-targets)
+- [Prompt Engineering](#prompt-engineering)
 - [Python Modules](#python-modules)
 - [Rust Crates](#rust-crates)
-- [Attacks](#attacks)
-- [Obfuscation & Encoding](#obfuscation--encoding)
 - [Traffic & Support Tooling](#traffic--support-tooling)
-- [Defences & Standards](#defences--standards)
-- [Approaches & Research](#approaches--research)
-- [Prompt Engineering](#prompt-engineering)
-- [Case Studies & Write-ups](#case-studies--write-ups)
-- [Bug Bounties & Programmes](#bug-bounties--programmes)
-- [More Lists](#more-lists)
+- [Credits](#credits)
 
 ---
+
+## Approaches & Research
+
+- [AI Red Teaming Guide](https://github.com/requie/AI-Red-Teaming-Guide) - Guide to adversarial testing and security evaluation of AI systems (includes Folly).
+- [awesome-ai-architect: Red Teaming](https://github.com/Alexey-Popov/awesome-ai-architect/blob/main/ai-architecture-topics/red-teaming.md) - Short guide: scenario generation, attack simulation, reporting workflows for AI systems.
+- [Hugging Face Red Teaming](https://huggingface.co/docs/red-teaming/index) - Guidance and tools for model safety evaluation and red teaming.
+- [OpenAI Red Teaming Network](https://openai.com/red-teaming-network) - Community experts probing models before release.
+- [LLM-Attacks (taxonomy)](https://github.com/AI-Security-Research-Group/LLM-Attacks) - Taxonomy of AI security issues, adversarial attacks, prompt injection, model poisoning, agent exploits.
+- [The LLM Red Teamer's Playbook](https://github.com/SnailSploit/The-LLM-Red-Teamer-s-Playbook) - Methodology for bypassing LLM defenses from input filters to memory exploitation.
+- [Anthropic - Red Teaming Language Models to Reduce Harms](https://www.anthropic.com/index/red-teaming-language-models-to-reduce-harms-methods-scaling-behaviors-and-lessons-learned) - How they red team, how it scales, and what they took away.
+- [DeepMind - Red Teaming Language Models with Language Models](https://www.deepmind.com/publications/red-teaming-language-models-with-language-models) - Using language models to find flaws in other language models.
+- [Best-of-N Jailbreaks](https://arxiv.org/abs/2412.03556) - Sample lots of prompts, keep the ones that slip past safety the most.
+- [Universal and Transferable Adversarial Attacks](https://arxiv.org/abs/2307.15043) - Suffixes that push many aligned models toward harmful outputs.
+- [AutoDAN](https://arxiv.org/abs/2310.15140) - Two-model setup that builds gradient-style adversarial prompts to get around filters.
+- [Faster-GCG](https://arxiv.org/abs/2410.15362) - Speeding up discrete search for jailbreak-style prompts.
+- [GenBFA](https://arxiv.org/abs/2411.13757) - Corrupting model weights with bit flips to steer behaviour.
+- [Manipulating LLM Recommendations](https://arxiv.org/abs/2404.07981) - Gaming recommender systems that rely on LLM outputs.
+- [GCG on OpenReview](https://openreview.net/forum?id=CMgxAaRqZh) - Discussion and review of coordinate-gradient jailbreak optimisation.
+- [GCG explainer (Nightfall)](https://www.nightfall.ai/ai-security-101/greedy-coordinate-gradient-gcg) - GCG explained without the math overload.
+- [BrokenHill overview (Bishop Fox)](https://bishopfox.com/blog/brokenhill-attack-tool-largelanguagemodels-llm) - Using GCG-style attacks in real engagements.
+- [ACG by Haize Labs](https://blog.haizelabs.com/posts/acg/) - Faster variant that cuts down attack runtime.
+
+## Attacks
+
+- [Indirect Prompt Injection](https://greshake.github.io) | [paper](https://arxiv.org/abs/2302.12173) | [blog](https://kai-greshake.de/posts/in-escalating-order-of-stupidity/) | [repo](https://github.com/greshake/llm-security) - Hitting LLM apps through poisoned or hijacked context instead of direct user input.
+
+## Bug Bounties & Programmes
+
+- [Microsoft AI Bounty](https://www.microsoft.com/en-us/msrc/bounty) - Report AI-related bugs and get rewarded.
+- [0DIN AI](https://0din.ai/) - Bug bounties and evals focused on GenAI.
+
+## Case Studies & Write-ups
+
+- [Microsoft: evolving guardrail attacks](https://www.microsoft.com/en-us/security/blog/2024/04/11/how-microsoft-discovers-and-mitigates-evolving-attacks-against-ai-guardrails/) - What they see in the wild and how they respond.
+- [Lessons from red teaming 100 AI products](https://www.microsoft.com/en-us/security/blog/2025/01/13/3-takeaways-from-red-teaming-100-generative-ai-products/) - Takeaways from running red teams across many GenAI products.
+- [Multi-chain prompt injection attacks](https://labs.withsecure.com/publications/multi-chain-prompt-injection-attacks) - Stringing injections across several stages of an LLM pipeline.
+- [Context pollution and delayed tool use](https://embracethered.com/blog/posts/2024/llm-context-pollution-and-delayed-automated-tool-invocation/) - Poisoning context so tools fire in bad ways later.
+- [Terminal ANSI sequence abuse](https://embracethered.com/blog/posts/2024/terminal-dillmas-prompt-injection-ansi-sequences/) - Escape sequences in model output that can run code locally.
+- [Air Canada chatbot case](https://www.wired.com/story/air-canada-chatbot-refund-policy/) - When a chatbot's wrong answer was treated as binding.
+
+## Defences & Standards
+
+- [Anthropic Constitutional Classifiers](https://www.anthropic.com/news/constitutional-classifiers) - Classifiers you can stress-test and try to circumvent.
+- [Prompt Guard 86M](https://huggingface.co/meta-llama/Prompt-Guard-86M) - Compact model that flags risky prompts.
+- [OWASP Top 10 for LLM Applications](https://owasp.org/www-project-top-10-for-large-language-model-applications/) - Top risks and mitigations for LLM apps; part of the OWASP GenAI Security Project.
+- [NIST AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework) - Voluntary framework for managing AI risks (design, development, use, evaluation) and trustworthiness.
+- [Coalition for Secure AI (CoSAI)](https://github.com/cosai-oasis) - OASIS Open Project: AI security guidance, supply chain, defender readiness, risk governance, secure design for agentic systems.
 
 ## Events
 
@@ -29,22 +80,7 @@ Built with ideas from [shlomihod/awesome-ai-red-teaming](https://github.com/shlo
 - [AI Village at DEFCON - Generative AI Red Team](https://aivillage.org/generative%20red%20team/generative-red-team/) - DEFCON track for GenAI red teaming.
 - [Twitter - Algorithmic Bias Bounty Challenge](https://blog.twitter.com/engineering/en_us/topics/insights/2021/learnings-from-the-first-algorithmic-bias-bounty-challenge) - What they learned from their first bias bounty.
 - [DevFest 2025 - La guerre des prompts](https://github.com/pi-2r/devfest2025-La-Guerre-des-Prompts-attaques-et-defenses-au-royaume-des-LLM) - Codelab workshop on attacking and defending LLMs with PyRIT and Garak.
-
-## Playgrounds & Practice Targets
-
-- [Microsoft AI Red Teaming Playground Labs](https://github.com/microsoft/AI-Red-Teaming-Playground-Labs) - Labs and infra for running AI red teaming trainings.
-- [Red AI Range (RAR)](https://github.com/ErdemOzgen/RedAiRange) - Docker-based security platform for AI red teaming: vulnerable targets, arsenal stacks, training scenarios, and session recording.
-- [Folly](https://github.com/user1342/Folly) - Sandbox for trying prompt injection and jailbreaks on an LLM.
-- [DamnVulnerableMathLLM](https://github.com/user1342/DamnVulnerableMathLLM) - Deliberately weak math app to practice injection and logic tricks.
-- [DamnVulnerableShoppingLLM](https://github.com/user1342/DamnVulnerableShoppingLLM) - Shopping assistant built to leak data and misuse tools.
-- [Vulnerable MCP Servers Lab](https://github.com/appsecco/vulnerable-mcp-servers-lab) - Intentionally vulnerable MCP servers for learning and pentesting.
-- [AspGoat](https://github.com/Soham7-dev/AspGoat) - Intentionally vulnerable ASP.NET Core app for web and LLM security practice.
-- [RedTeam Arena](https://redarena.ai/) - Timed contests to break model guardrails.
-- [MyLLM Bank](https://myllmbank.com/) - WithSecure CTF: chain prompt injections in a multi-LLM banking setup.
-- [MyLLM Doctor](https://myllmdoc.com/) - WithSecure medical bot: multi-step injection and dodging policies.
-- [Gandalf (Lakera)](https://gandalf.lakera.ai/intro) - Try to pull a secret out of a protected model.
-- [SynAccel LLM Red Team Sandbox](https://github.com/SynAccel/SynAccel-llm-redteam-sandbox) - Sandbox for prompt injections, jailbreaks, and red team experiments.
-- [Builder-Breaker Lab](https://github.com/Harry-Ashley/Builder-Breaker-Lab) - Autonomous red team lab using Microsoft AI Red Team Taxonomy and PyRIT for agentic AI.
+- [Weaponizing data science for social engineering (DEF CON 24)](https://media.defcon.org/DEF%20CON%2024/DEF%20CON%2024%20presentations/DEF%20CON%2024%20-%20Seymour-Tully-Weaponizing-Data-Science-For-Social-Engineering-WP.pdf) - Automated E2E spear phishing on Twitter; AI/data-science in red team operations.
 
 ## Frameworks & Toolkits
 
@@ -62,6 +98,41 @@ Built with ideas from [shlomihod/awesome-ai-red-teaming](https://github.com/shlo
 - [Kereva Scanner](https://github.com/kereva-dev/kereva-scanner) - Code scanner for prompts and LLM calls (OWASP LLM Top 10, hallucinations, performance).
 - [garak-repo](https://github.com/lreading/garak-repo) - Store and visualize Garak LLM vulnerability scanner runs.
 - [HackAPrompt AIRT Agents](https://github.com/GangGreenTemperTatum/hackaprompt) - Agent implementations for HackAPrompt-style red team challenges.
+
+## More Lists
+
+- [awesome-ai-security](https://github.com/ottosulin/awesome-ai-security) - AI security frameworks, standards, learning resources, offensive and defensive tools.
+- [awesome-ai-architect](https://github.com/Alexey-Popov/awesome-ai-architect) - AI architecture topics including [red teaming](https://github.com/Alexey-Popov/awesome-ai-architect/blob/main/ai-architecture-topics/red-teaming.md).
+- [awesome-llm-security](https://github.com/beyefendi/awesome-llm-security) - LLM security tools, research, and docs (agentic security, benchmarking).
+- [awesome-python](https://github.com/vinta/awesome-python) - Curated Python frameworks, libraries, and resources (includes ML, penetration testing, and security tooling).
+- [GitHub topic: ai-red-team](https://github.com/topics/ai-red-team) - Discover repos tagged for AI red teaming.
+
+## Obfuscation & Encoding
+
+- [Invisible Unicode Tags Playground](https://josephthacker.com/invisible_prompt_injection) - Encode instructions in invisible Unicode so filters miss them.
+- [Emoji Variation Selector Playground](https://josephthacker.com/emoji_variation) - Bury payloads inside emoji variation selectors.
+- [ASCII to Unicode Character Reducer](https://josephthacker.com/unicode_reducer) - Swap ASCII for Unicode lookalikes to break naive filters.
+
+## Playgrounds & Practice Targets
+
+- [Microsoft AI Red Teaming Playground Labs](https://github.com/microsoft/AI-Red-Teaming-Playground-Labs) - Labs and infra for running AI red teaming trainings.
+- [Red AI Range (RAR)](https://github.com/ErdemOzgen/RedAiRange) - Docker-based security platform for AI red teaming: vulnerable targets, arsenal stacks, training scenarios, and session recording.
+- [Folly](https://github.com/user1342/Folly) - Sandbox for trying prompt injection and jailbreaks on an LLM.
+- [DamnVulnerableMathLLM](https://github.com/user1342/DamnVulnerableMathLLM) - Deliberately weak math app to practice injection and logic tricks.
+- [DamnVulnerableShoppingLLM](https://github.com/user1342/DamnVulnerableShoppingLLM) - Shopping assistant built to leak data and misuse tools.
+- [Vulnerable MCP Servers Lab](https://github.com/appsecco/vulnerable-mcp-servers-lab) - Intentionally vulnerable MCP servers for learning and pentesting.
+- [AspGoat](https://github.com/Soham7-dev/AspGoat) - Intentionally vulnerable ASP.NET Core app for web and LLM security practice.
+- [RedTeam Arena](https://redarena.ai/) - Timed contests to break model guardrails.
+- [MyLLM Bank](https://myllmbank.com/) - WithSecure CTF: chain prompt injections in a multi-LLM banking setup.
+- [MyLLM Doctor](https://myllmdoc.com/) - WithSecure medical bot: multi-step injection and dodging policies.
+- [Gandalf (Lakera)](https://gandalf.lakera.ai/intro) - Try to pull a secret out of a protected model.
+- [SynAccel LLM Red Team Sandbox](https://github.com/SynAccel/SynAccel-llm-redteam-sandbox) - Sandbox for prompt injections, jailbreaks, and red team experiments.
+- [Builder-Breaker Lab](https://github.com/Harry-Ashley/Builder-Breaker-Lab) - Autonomous red team lab using Microsoft AI Red Team Taxonomy and PyRIT for agentic AI.
+
+## Prompt Engineering
+
+- [Learning Prompting](https://learnprompting.org) - Go from zero to solid prompt-engineering skills.
+- [DeepLearning.AI - ChatGPT Prompt Engineering for Developers](https://learn.deeplearning.ai/chatgpt-prompt-eng/) - Bite-sized developer course on writing effective prompts.
 
 ## Python Modules
 
@@ -113,69 +184,21 @@ When you need speed, control, or minimal dependencies for model endpoints, mock 
 - [wiremock](https://crates.io/crates/wiremock) - Mock HTTP servers to drive model or tool behavior in tests.
 - [bytes](https://crates.io/crates/bytes) - Efficient buffers for streaming bodies and chunked encoding edge cases.
 
-## Attacks
-
-- [Indirect Prompt Injection](https://greshake.github.io) | [paper](https://arxiv.org/abs/2302.12173) | [blog](https://kai-greshake.de/posts/in-escalating-order-of-stupidity/) | [repo](https://github.com/greshake/llm-security) - Hitting LLM apps through poisoned or hijacked context instead of direct user input.
-
-## Obfuscation & Encoding
-
-- [Invisible Unicode Tags Playground](https://josephthacker.com/invisible_prompt_injection) - Encode instructions in invisible Unicode so filters miss them.
-- [Emoji Variation Selector Playground](https://josephthacker.com/emoji_variation) - Bury payloads inside emoji variation selectors.
-- [ASCII to Unicode Character Reducer](https://josephthacker.com/unicode_reducer) - Swap ASCII for Unicode lookalikes to break naive filters.
-
 ## Traffic & Support Tooling
 
 - [LLM-itM](https://github.com/user1342/LLM-itM) - Proxy in front of OpenAI-style APIs to view and tweak requests and replies.
 
-## Defences & Standards
+## Credits
 
-- [Anthropic Constitutional Classifiers](https://www.anthropic.com/news/constitutional-classifiers) - Classifiers you can stress-test and try to circumvent.
-- [Prompt Guard 86M](https://huggingface.co/meta-llama/Prompt-Guard-86M) - Compact model that flags risky prompts.
-- [OWASP Top 10 for LLM Applications](https://owasp.org/www-project-top-10-for-large-language-model-applications/) - Top risks and mitigations for LLM apps; part of the OWASP GenAI Security Project.
-- [NIST AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework) - Voluntary framework for managing AI risks (design, development, use, evaluation) and trustworthiness.
-- [Coalition for Secure AI (CoSAI)](https://github.com/cosai-oasis) - OASIS Open Project: AI security guidance, supply chain, defender readiness, risk governance, secure design for agentic systems.
+This list was inspired by and draws on the following projects and references. Thank you to their authors and communities.
 
-## Approaches & Research
-
-- [AI Red Teaming Guide](https://github.com/requie/AI-Red-Teaming-Guide) - Guide to adversarial testing and security evaluation of AI systems (includes Folly).
-- [LLM-Attacks (taxonomy)](https://github.com/AI-Security-Research-Group/LLM-Attacks) - Taxonomy of AI security issues, adversarial attacks, prompt injection, model poisoning, agent exploits.
-- [The LLM Red Teamer's Playbook](https://github.com/SnailSploit/The-LLM-Red-Teamer-s-Playbook) - Methodology for bypassing LLM defenses from input filters to memory exploitation.
-- [Anthropic - Red Teaming Language Models to Reduce Harms](https://www.anthropic.com/index/red-teaming-language-models-to-reduce-harms-methods-scaling-behaviors-and-lessons-learned) - How they red team, how it scales, and what they took away.
-- [DeepMind - Red Teaming Language Models with Language Models](https://www.deepmind.com/publications/red-teaming-language-models-with-language-models) - Using language models to find flaws in other language models.
-- [Best-of-N Jailbreaks](https://arxiv.org/abs/2412.03556) - Sample lots of prompts, keep the ones that slip past safety the most.
-- [Universal and Transferable Adversarial Attacks](https://arxiv.org/abs/2307.15043) - Suffixes that push many aligned models toward harmful outputs.
-- [AutoDAN](https://arxiv.org/abs/2310.15140) - Two-model setup that builds gradient-style adversarial prompts to get around filters.
-- [Faster-GCG](https://arxiv.org/abs/2410.15362) - Speeding up discrete search for jailbreak-style prompts.
-- [GenBFA](https://arxiv.org/abs/2411.13757) - Corrupting model weights with bit flips to steer behaviour.
-- [Manipulating LLM Recommendations](https://arxiv.org/abs/2404.07981) - Gaming recommender systems that rely on LLM outputs.
-- [GCG on OpenReview](https://openreview.net/forum?id=CMgxAaRqZh) - Discussion and review of coordinate-gradient jailbreak optimisation.
-- [GCG explainer (Nightfall)](https://www.nightfall.ai/ai-security-101/greedy-coordinate-gradient-gcg) - GCG explained without the math overload.
-- [BrokenHill overview (Bishop Fox)](https://bishopfox.com/blog/brokenhill-attack-tool-largelanguagemodels-llm) - Using GCG-style attacks in real engagements.
-- [ACG by Haize Labs](https://blog.haizelabs.com/posts/acg/) - Faster variant that cuts down attack runtime.
-
-## Prompt Engineering
-
-- [Learning Prompting](https://learnprompting.org) - Go from zero to solid prompt-engineering skills.
-- [DeepLearning.AI - ChatGPT Prompt Engineering for Developers](https://learn.deeplearning.ai/chatgpt-prompt-eng/) - Bite-sized developer course on writing effective prompts.
-
-## Case Studies & Write-ups
-
-- [Microsoft: evolving guardrail attacks](https://www.microsoft.com/en-us/security/blog/2024/04/11/how-microsoft-discovers-and-mitigates-evolving-attacks-against-ai-guardrails/) - What they see in the wild and how they respond.
-- [Lessons from red teaming 100 AI products](https://www.microsoft.com/en-us/security/blog/2025/01/13/3-takeaways-from-red-teaming-100-generative-ai-products/) - Takeaways from running red teams across many GenAI products.
-- [Multi-chain prompt injection attacks](https://labs.withsecure.com/publications/multi-chain-prompt-injection-attacks) - Stringing injections across several stages of an LLM pipeline.
-- [Context pollution and delayed tool use](https://embracethered.com/blog/posts/2024/llm-context-pollution-and-delayed-automated-tool-invocation/) - Poisoning context so tools fire in bad ways later.
-- [Terminal ANSI sequence abuse](https://embracethered.com/blog/posts/2024/terminal-dillmas-prompt-injection-ansi-sequences/) - Escape sequences in model output that can run code locally.
-- [Air Canada chatbot case](https://www.wired.com/story/air-canada-chatbot-refund-policy/) - When a chatbot's wrong answer was treated as binding.
-
-## Bug Bounties & Programmes
-
-- [Microsoft AI Bounty](https://www.microsoft.com/en-us/msrc/bounty) - Report AI-related bugs and get rewarded.
-- [0DIN AI](https://0din.ai/) - Bug bounties and evals focused on GenAI.
-
-## More Lists
-
-- [awesome-python](https://github.com/vinta/awesome-python) - Curated Python frameworks, libraries, and resources (includes ML, penetration testing, and security tooling).
-- [awesome-llm-security](https://github.com/beyefendi/awesome-llm-security) - LLM security tools, research, and docs (agentic security, benchmarking).
+- [shlomihod/awesome-ai-red-teaming](https://github.com/shlomihod/awesome-ai-red-teaming) - Curated AI red teaming resources and tools.
+- [user1342/Awesome-LLM-Red-Teaming](https://github.com/user1342/Awesome-LLM-Red-Teaming) - LLM red teaming training, resources, and tools.
+- [ottosulin/awesome-ai-security](https://github.com/ottosulin/awesome-ai-security) - AI security frameworks, standards, offensive/defensive tools.
+- [yeyintminthuhtut/Awesome-Red-Teaming](https://github.com/yeyintminthuhtut/Awesome-Red-Teaming) - General red team resources (MITRE ATT&CK); selected AI-related overlap included here.
+- [requie/AI-Red-Teaming-Guide](https://github.com/requie/AI-Red-Teaming-Guide) - Comprehensive guide to adversarial testing and security evaluation of AI systems.
+- [Alexey-Popov/awesome-ai-architect](https://github.com/Alexey-Popov/awesome-ai-architect) - AI architecture topics, including [red teaming](https://github.com/Alexey-Popov/awesome-ai-architect/blob/main/ai-architecture-topics/red-teaming.md).
+- [GitHub topic: ai-red-team](https://github.com/topics/ai-red-team) - Repositories tagged for AI red teaming.
 
 ---
 
