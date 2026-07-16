@@ -85,6 +85,7 @@ This is a **curated** list of resources that are helpful for AI red teaming. The
 ## Frameworks & Toolkits
 
 - [PyRIT](https://github.com/Azure/PyRIT) - Microsoft's framework for structured, repeatable GenAI red teaming and automation.
+- [Redcells](https://github.com/awdemos/redcell) - Automated adversarial testing platform for the LLMs you own or control.
 - [Agentic Radar](https://github.com/splx-ai/agentic-radar) - Security scanner for LLM agentic and MCP workflows.
 - [Rigging](https://github.com/dreadnode/rigging) - Minimal harness for agents and tool use in offensive LLM tests.
 - [Whistleblower](https://github.com/Repello-AI/whistleblower) - Offensive tool to test system prompt leakage and capability discovery on API-exposed AI apps.
